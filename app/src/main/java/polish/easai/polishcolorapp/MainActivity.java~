@@ -1,0 +1,115 @@
+package polish.easai.polishcolorapp;
+
+import android.app.ListActivity;
+import android.media.MediaPlayer;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+
+public class MainActivity extends ListActivity {
+    String[] plList;
+    String[] enList;
+    int[] audioList;
+
+    MediaPlayer mediaPlayer;
+    int audio[] = {
+            R.raw.bialy, // <item>bia?y</item>
+            R.raw.czerwony, // <item>czerwony</item>
+            R.raw.pomaranczowy, // <item>pomara?czowy</item>
+            R.raw.zloty, // <item>z?oty</item>
+            R.raw.zielony, // <item>zielony</item>
+            R.raw.niebieski, // <item>niebieski</item>
+            R.raw.granatowy, // <item>granatowy</item>
+            R.raw.fioletowy, // <item>fioletowy</item>
+            R.raw.karmazyn, // <item>karmazyn</item>
+            R.raw.czarny, // <item>czarny</item>
+            R.raw.rozowy, // <item>ró?owy</item>
+            R.raw.szary, // <item>szary</item>
+            R.raw.blekitny, // <item>b??kitny</item>
+            R.raw.jasnozielony, // <item>jasnozielony</item>
+            R.raw.ciemnoczerwony, // <item>ciemnoczerwony</item>
+            R.raw.przezroczysty, // <item>przezroczysty</item>
+            R.raw.bezowy, // <item>be?owy</item>
+            R.raw.purpurowy, // <item>purpurowy</item>
+            R.raw.srebrny, // <item>srebrny</item>
+            R.raw.brazowy // <item>br?zowy</item>
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        String[] pl = getResources().getStringArray(R.array.pl);
+        int nWords = pl.length;
+        String[] en = getResources().getStringArray(R.array.en);
+        PolishWord wordList[] = new PolishWord[nWords];
+        for (int i = 0; i < nWords; i++) {
+            wordList[i] = new PolishWord(pl[i], en[i], audio[i]);
+        }
+
+        Arrays.sort(wordList, new Comparator<PolishWord>() {
+            @Override
+            public int compare(PolishWord p0, PolishWord p1) {
+                return p0.pl.compareTo(p1.pl);
+            }
+        });
+
+        plList = new String[nWords];
+        enList = new String[nWords];
+        audioList = new int[nWords];
+        for (int i = 0; i < nWords; i++) {
+            plList[i] = wordList[i].pl;
+            enList[i] = wordList[i].en;
+            audioList[i] = wordList[i].audioID;
+        }
+
+        setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_main, plList));
+
+        ListView lv = getListView();
+        lv.setTextFilterEnabled(true);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                String[] pl = getResources().getStringArray(R.array.en);
+                // Toast.makeText(getApplicationContext(),
+                // ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        enList[(int) id], Toast.LENGTH_SHORT).show();
+
+                int audioId = audioList[(int) id];
+                if (audioId != 0) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), audioId);
+                    mediaPlayer.start();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
+}

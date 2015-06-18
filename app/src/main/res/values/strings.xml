@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Polish Color App</string>
+    <string-array name="en">
+        <item>white</item>
+        <item>red</item>
+        <item>orange</item>
+        <item>golden</item>
+        <item>green</item>
+        <item>blue</item>
+        <item>navy blue</item>
+        <item>violet</item>
+        <item>crimson</item>
+        <item>black</item>
+        <item>fuchsia</item>
+        <item>gray</item>
+        <item>sky blue</item>
+        <item>lime</item>
+        <item>dark red</item>
+        <item>transparent</item>
+        <item>beige</item>
+        <item>purple</item>
+        <item>silver</item>
+        <item>brown</item>
+    </string-array>
+
+    <string name="color_prompt">Pick a Color. Any Color.</string>
+    <string-array name="pl">
+        <item>biały</item>
+        <item>czerwony</item>
+        <item>pomarańczowy</item>
+        <item>złoty</item>
+        <item>zielony</item>
+        <item>niebieski</item>
+        <item>granatowy</item>
+        <item>fioletowy</item>
+        <item>karmazyn</item>
+        <item>czarny</item>
+        <item>różowy</item>
+        <item>szary</item>
+        <item>błękitny</item>
+        <item>jasnozielony</item>
+        <item>ciemnoczerwony</item>
+        <item>przezroczysty</item>
+        <item>beżowy</item>
+        <item>purpurowy</item>
+        <item>srebrny</item>
+        <item>brązowy</item>
+    </string-array>
+</resources>
